@@ -11,7 +11,7 @@ docker-compose up --build
 This command builds the Docker images and starts the two containers:
 
 
-- **frontend**: react + vite
+- **frontend**: React + Vite
 - **backend**: Flask
 
 The configuration file `.env` is located in the root of the project.
