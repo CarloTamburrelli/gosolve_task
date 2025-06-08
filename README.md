@@ -2,13 +2,13 @@
 
 Make sure you have Docker and Docker Compose installed.
 
-To start the project in foreground:
+To build and run the project in foreground:
 
 ```bash
 make up
 ```
 
-To start the project in background:
+In background:
 
 ```bash
 make up-detached
