@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "${FLASK_PORT}:${FLASK_PORT}"
+    environment:
+      - FLASK_PORT=${FLASK_PORT}
+      - LOG_LEVEL=${LOG_LEVEL}
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://localhost:${FLASK_PORT}
+    ports:
+      - "${REACT_PORT}:${REACT_PORT}"
+    environment:
+      - VITE_PORT=${REACT_PORT}
+    volumes:
+        - ./frontend:/app
+        - /app/node_modules
+    restart: unless-stopped
