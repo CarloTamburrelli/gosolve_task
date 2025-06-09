@@ -36,8 +36,8 @@ make test
 
 To handle larger files (e.g. tens of GBs), the following integrations could be considered:
 
-- **Celery + Redis**: to offload search operations to asynchronous workers and improve scalability.
-- **File sharding**: to split the file into logical parts, enabling parallel search and reducing memory load.
+- **Celery + Redis**: to offload search operations to asynchronous workers and improve scalability
+- **File sharding**: to split the file into logical parts, enabling parallel search and reducing memory load
 
 
 
