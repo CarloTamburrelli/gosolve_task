@@ -32,9 +32,8 @@ function SearchNumber() {
         }
         setResult('');
       } else {
-        // Risposta OK
         if (data.index !== undefined && data.index !== null) {
-          setResult(`Index found: ${data.index}`);
+          setResult(`Index found: ${data.index}, Value: ${data.value}`);
           setError('');
         } else {
           setError('Invalid server response');
