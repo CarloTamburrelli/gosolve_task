@@ -16,7 +16,7 @@ def create_app() -> Flask:
         search_service = SearchService(Config.DATA_FILE)
         logger.info("File reading completed and data structures prepared")
     except Exception as e:
-        logger.error(f"Error reading file: {e}")
+        logger.exception(f"Failed to initialize search service: {e}")
         raise RuntimeError("Failed to initialize search service")
 
     app = Flask(__name__)
