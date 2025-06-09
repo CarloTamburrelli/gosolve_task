@@ -17,7 +17,7 @@ make up-detached
 The `make up` command will build the docker images and starts the two containers:
 
 
-- **frontend**: React + Vite
+- **frontend**: React + Vite (in dev mode)
 - **backend**: Flask
 
 By default the frontend will be available at: [http://localhost:3000](http://localhost:3000)
