@@ -1,5 +1,9 @@
 from bisect import bisect_left
 from typing import List, Optional
+from .models import SearchResult
+
+
+
 
 class SearchService:
     def __init__(self, file_path: str):
@@ -10,17 +14,17 @@ class SearchService:
         with open(path) as f:
             return list(map(int, f.read().split()))
 
-    def search(self, target: int) -> Optional[int]:
+    def search(self, target: int) -> SearchResult:
         '''
             The algorithm first searches for the value in the hash map. 
             If it's not found, it then performs a binary search on the list.
         '''
 
         if not isinstance(target, int):
-            return None
+            raise TypeError("Expected an integer as target")
 
         if target in self.value_to_index:
-            return self.value_to_index[target]
+            return SearchResult(index=self.value_to_index[target], value=target)
 
         pos = bisect_left(self.values, target)
         tolerance = target * 0.1
@@ -33,5 +37,6 @@ class SearchService:
                         best_match = (i, self.values[i])
         
         if best_match:
-            return best_match[0]
+            return SearchResult(index=best_match[0], value=best_match[1], message="Approximate match")
+
         return None

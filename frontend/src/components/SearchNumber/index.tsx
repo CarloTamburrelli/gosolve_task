@@ -19,14 +19,20 @@ function SearchNumber() {
 
     try {
       const response = await fetch(`${API_URL}/endpoint/${number}`);
+
+      const data = await response.json();
     
       if (!response.ok) {
-        // index not found or internal error
-        const errorData = await response.json();
-        setError(errorData.error || 'Unknown error from server');
+        if (response.status === 400) {
+          setError(`Invalid input: ${data.error || 'Bad Request'}`);
+        } else if (response.status === 404) {
+          setError(`Not found: ${data.error || 'Index not found'}`);
+        } else {
+          setError(data.error || 'Unknown error from server');
+        }
         setResult('');
       } else {
-        const data = await response.json();
+        // Risposta OK
         if (data.index !== undefined && data.index !== null) {
           setResult(`Index found: ${data.index}`);
           setError('');

@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify
 
 from flask import Response
 from .service import SearchService
+from dataclasses import asdict
 import logging
 
 bp = Blueprint('routes', __name__)
@@ -16,13 +17,14 @@ def init_routes(service: SearchService):
 @bp.route("/endpoint/<int:number>", methods=["GET"])
 def search(number) -> tuple[Response, int]:
     try:
-        index = search_service.search(number)
+        result: SearchResult = search_service.search(number)
+    except TypeError as e:
+        return jsonify({"error": str(e)}), 400
     except Exception as e:
         logger.exception("Internal error while looking up value: %s", e)
         return jsonify({"error": "Internal error while looking up value"}), 500
 
-    if index is not None:
-        logger.info("Found index %d with value %d", index, number )
-        return jsonify({"index": index}), 200
-    logger.warning("Index not found with value %d", number )
-    return jsonify({"error": "error message"}), 404
+    if result is not None:
+        return jsonify(asdict(result)), 200
+
+    return jsonify({"error": "Value not found"}), 404
