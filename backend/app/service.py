@@ -14,7 +14,7 @@ class SearchService:
         with open(path) as f:
             return list(map(int, f.read().split()))
 
-    def search(self, target: int) -> SearchResult:
+    def search(self, target: int) -> Optional[SearchResult]:
         '''
             The algorithm first searches for the value in the hash map. 
             If it's not found, it then performs a binary search on the list.
